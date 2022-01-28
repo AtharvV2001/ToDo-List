@@ -1,8 +1,8 @@
 :root{
-    --color1: #4abdac;
-    --color2: #fc4a1a;
-    --color3: #f7b733;
-    --color4: #eeeeee;
+    --color1: #0e0b16;
+    --color2: #a239ca;
+    --color3: #4717f6;
+    --color4: #e7dfdd;
 }
 body{
     background-color: var(--color1);
@@ -24,7 +24,7 @@ body{
     width: 345px;
     height: 40px;
     margin-left: 10px;
-    background-color: #589c92;
+    background-color: #000000;
     color: var(--color4);
     border: 1px solid var(--color3);
 }
