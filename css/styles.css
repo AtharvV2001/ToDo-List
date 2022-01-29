@@ -62,3 +62,20 @@ body{
 li:last-child{
     border: none;
 }
+.hov{
+    transition: 0.5s;
+}
+.hov:hover{
+    background-color: #732c8f;
+}
+
+/* Modal CSS */
+.backmodel{
+    background-color: white;
+    opacity: 0.4;
+}
+.mainmodel{
+    background-color: var(--color4);
+    color: var(--color1);
+
+}
