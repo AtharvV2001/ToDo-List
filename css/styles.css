@@ -8,6 +8,8 @@ body{
     background-color: var(--color1);
     color: var(--color4);
 }
+
+/* CSS for Registration Section */
 .cb{
     border: 5px solid var(--color3);
     border-radius: 15px;
@@ -34,4 +36,29 @@ body{
 ::placeholder{
     color: var(--color4);
     opacity: 0.6;
+}
+
+/* CSS for ToDo List Section */
+.nb{
+    height: 35px;
+    width: 150px;
+    font-size: 16px;
+    background-color: var(--color2);
+    color: var(--color4);
+    border-color: var(--color3);
+}
+.tdcon{
+    border: 5px solid var(--color2);
+    border-radius: 15px;
+}
+.list-item{
+    background-color: var(--color1);
+    color: var(--color4);
+    border-bottom: 2px solid var(--color3);
+}
+.list-btn{
+    background-color: var(--color2);
+}
+li:last-child{
+    border: none;
 }
