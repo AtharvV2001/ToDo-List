@@ -73,32 +73,32 @@ function check_valid() {
 }
 
 // js Code for ToDo list Section
-let myToDoList = JSON.parse(localStorage.getItem('temp'));
-// let myArr = [
-//     // {
-//     //     'id': 0,
-//     //     'title': 'Task 1',
-//     //     'desc': 'Description 1'
-//     // },
-//     // {
-//     //     'id': 1,
-//     //     'title': 'Task 2',
-//     //     'desc': 'Description 2'
-//     // },
-//     // {
-//     //     'id': 2,
-//     //     'title': 'Task 3',
-//     //     'desc': 'Description 3'
-//     // }
-// ];
+// let myToDoList = JSON.parse(localStorage.getItem('temp'));
+let myArr = [
+    // {
+    //     'id': 0,
+    //     'title': 'Task 1',
+    //     'desc': 'Description 1'
+    // },
+    // {
+    //     'id': 1,
+    //     'title': 'Task 2',
+    //     'desc': 'Description 2'
+    // },
+    // {
+    //     'id': 2,
+    //     'title': 'Task 3',
+    //     'desc': 'Description 3'
+    // }
+];
 
 
 // Show Existing Items in List
 function show() {
-    for (let i = 0; i < myToDoList.length; i++) {
-        const num = myToDoList[i].id;
-        const titles = myToDoList[i].title;
-        const dec = myToDoList[i].desc;
+    for (let i = 0; i < myArr.length; i++) {
+        const num = myArr[i].id;
+        const titles = myArr[i].title;
+        const dec = myArr[i].desc;
         display_list(num, titles, dec);
     }
 
@@ -106,7 +106,7 @@ function show() {
 
 // Adding new item in list and displaying
 function addItem() {
-    const num = myToDoList.length;
+    const num = myArr.length;
     const titles = document.getElementById('titlea').value;
     const dec = document.getElementById('desca').value;
     if (titles != "" || dec != "") {
@@ -115,8 +115,8 @@ function addItem() {
             'title': titles,
             'desc': dec
         }
-        myToDoList.push(tempObj);
-        localStorage.setItem('temp',JSON.stringify(myToDoList));
+        myArr.push(tempObj);
+        //localStorage.setItem('temp',JSON.stringify(myToDoList));
         display_list(num, titles, dec);
         document.getElementById('titlea').value = "";
         document.getElementById('desca').value = "";
@@ -137,21 +137,55 @@ function display_list(a, b, c) {
     lc.id = "item" + a;
     cl = ['list-group-item', 'd-flex', 'justify-content-between', 'align-items-start', 'list-item']
     lc.classList.add(...cl);
-    lc.innerHTML = '<div class="ms-2 me-auto" style="max-width: 550px;"><div class="fw-bold fs-5" id="title' + a + '">' + b + '</div><span id="desc' + a + '">' + c + '</span></div><div class="badge rounded-pill fs-5 list-btn hov" data-bs-toggle="modal" data-bs-target="#edit-item" onclick="display_edit(' + a + ')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></div><div class="badge rounded-pill fs-5 ms-3 list-btn hov" data-bs-toggle="modal" data-bs-target="#delete-item"><i class="fa fa-trash-o" aria-hidden="true"></i></div>'
+    lc.innerHTML = '<div class="ms-2 me-auto" style="max-width: 550px;"><div class="fw-bold fs-5" id="title' + a + '">' + b + '</div><span id="desc' + a + '">' + c + '</span></div><div class="badge rounded-pill fs-5 list-btn hov" data-bs-toggle="modal" data-bs-target="#edit-item" onclick="display_edit(' + a + ')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></div><div class="badge rounded-pill fs-5 ms-3 list-btn hov" data-bs-toggle="modal" data-bs-target="#delete-item" onclick="display_delete('+a+')"><i class="fa fa-trash-o" aria-hidden="true"></i></div>'
 }
 
 // Editing exsiting Item in list and displaying
 function display_edit(id) {
-    document.getElementById('titlee').value = myToDoList[id].title;
-    document.getElementById('desce').value = myToDoList[id].desc;
+    document.getElementById('ide').value = id
+    document.getElementById('titlee').value = myArr[id].title;
+    document.getElementById('desce').value = myArr[id].desc;
 }
 
 function editItem() {
     const titles = document.getElementById('titlee').value;
     const dec = document.getElementById('desce').value;
+    const id = document.getElementById('ide').value;
 
-    myToDoList[id].title = titles;
-    myToDoList[id].desc = dec;
+    myArr[id].title = titles;
+    myArr[id].desc = dec;
 
+    document.getElementById('title'+id).innerText = titles;
+    document.getElementById('desc'+id).innerText = dec;
+
+}
+
+// Deleting exsiting Item from list and removing from display
+function display_delete(id) {
+    document.getElementById('idd').value = id;
+}
+
+function deleteItem() {
+    const id = Number.parseInt(document.getElementById('idd').value);
+
+    let tempArr1 = myArr.slice(0,id);
+    alert(JSON.stringify(tempArr1));
+    let tempArr2 = myArr.slice(id+1,-1);
+    alert(JSON.stringify(tempArr2));
+
+    myArr = myArr.filter(x => x.id !== id);
+    alert(JSON.stringify(myArr));
+
+    showadel(myArr);
+}
+
+function showadel(x) {
+    document.getElementById('todo-list').innerHTML = "";
+    for (let i = 0; i < x.length; i++) {
+        const num = x[i].id;
+        const titles = x[i].title;
+        const dec = x[i].desc;
+        display_list(num, titles, dec);
+    }
 
 }

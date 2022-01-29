@@ -27,8 +27,6 @@
     <div class="container head text-center mt-4 mb-4" id="head2" style="max-width: 550px;">
         <h1>Welcome <span id=input-name>Jack</span></h1>
         <h3>Your ToDo List &triangledown;</h3>
-        <!-- <button class="btn btn-danger" onclick="display_list(3,'HEllO','descsdad')">hello</button>
-        <button class="btn btn-danger" onclick="show()">New</button> -->
         <button class="nb" data-bs-toggle="modal" data-bs-target="#Add-item"> Add New Task</button>
     </div>
 
@@ -40,10 +38,10 @@
                     <div class="fw-bold fs-5" id="title0">Task 1</div>
                     <span id="desc0">Description 1</span>
                 </div>
-                <div class="badge rounded-pill fs-5 list-btn hov" data-bs-toggle="modal" data-bs-target="#edit-item" onclick="display_edit(0)">
+                <div class="badge rounded-pill fs-5 list-btn hov" data-bs-toggle="modal" data-bs-target = "#edit-item" onclick="display_edit(0)">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                 </div>
-                <div class="badge rounded-pill fs-5 ms-3 list-btn hov" data-bs-toggle="modal" data-bs-target="#delete-item">
+                <div class="badge rounded-pill fs-5 ms-3 list-btn hov" data-bs-toggle="modal" data-bs-target="#delete-item" onclick="display_delete(0)">
                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </div>
             </li> -->
@@ -100,6 +98,7 @@
                                     <label for="titlee">Title of Task :</label>
                                 </td>
                                 <td>
+                                    <input type="number" id="ide" readonly style="display: none;">
                                     <input type="text" name="titlee" id="titlee" maxlength="50" required>
                                 </td>
                             </tr>
@@ -123,12 +122,13 @@
         <div class="modal-dialog">
             <div class="modal-content mainmodel">
                 <div class="modal-header">
+                    <input type="number" id="idd" readonly style="display: none;">
                     <h5 class="modal-title fs-4" id="deleteItemLabel">Do you want to Delete this item ?</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Delete</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="deleteItem()">Delete</button>
                 </div>
             </div>
         </div>
