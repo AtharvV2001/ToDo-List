@@ -6,84 +6,88 @@ function check_valid() {
     let iconpwd = document.getElementById('conpwd').value;
     let iname = document.getElementById('name').value;
 
-    // To Show Alert in case of Error
-    let msg;
-    let errorB = document.getElementById('display-error');
+    let ename = "", eemail = "", epwd = "", ecompwd = "";
+    let ncn = 0, ecn = 0, pcn = 0, cpcn = 0, mcn = 0;
 
-    // Check for blank Field
-    if (iemail == "" && iname == "" && iconpwd == "" && ipwd == "") {
-        msg = "Fill all Fields";
-        errorB.innerHTML = '<div class="alert alert-danger alert-dismissible" role="alert"  style="height: 30px; padding-top: 0%;">' + msg + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="height: 30px; padding: 0; padding-right: 10px;"></button></div>'
+    // Check Validation for blank Field
+    if (iname == "" && iemail == "" && ipwd == "" && iconpwd == "") {
+        document.getElementById('error-name').innerHTML = '<div class="alert alert-danger errorshow" role="alert">Please fill this field</div>';
+        document.getElementById('error-email').innerHTML = '<div class="alert alert-danger errorshow" role="alert">Please fill this field</div>';
+        document.getElementById('error-pwd').innerHTML = '<div class="alert alert-danger errorshow" role="alert">Please fill this field</div>';
+        document.getElementById('error-conpwd').innerHTML = '<div class="alert alert-danger errorshow" role="alert">Please fill this field</div>';
         return 0;
     }
+
     if (iname == "") {
-        msg = "Fill Name Field";
-        errorB.innerHTML = '<div class="alert alert-danger alert-dismissible" role="alert"  style="height: 30px; padding-top: 0%;">' + msg + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="height: 30px; padding: 0; padding-right: 10px;"></button></div>'
-        return 0;
+        document.getElementById('error-name').innerHTML = '<div class="alert alert-danger errorshow" role="alert">Please fill this field</div>';
     }
+    if (iname != "") {
+        document.getElementById('error-name').innerHTML = "";
+        mcn++;
+    }
+
+    // Check for email field
+    let regexForEmail = /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/;
     if (iemail == "") {
-        msg = "Fill Email Fields";
-        errorB.innerHTML = '<div class="alert alert-danger alert-dismissible" role="alert"  style="height: 30px; padding-top: 0%;">' + msg + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="height: 30px; padding: 0; padding-right: 10px;"></button></div>'
-        return 0;
+        document.getElementById('error-email').innerHTML = '<div class="alert alert-danger errorshow" role="alert">Please fill this field</div>';
+        ecn = 1;
     }
-    if (ipwd == "") {
-        msg = "Fill Password Fields";
-        errorB.innerHTML = '<div class="alert alert-danger alert-dismissible" role="alert"  style="height: 30px; padding-top: 0%;">' + msg + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="height: 30px; padding: 0; padding-right: 10px;"></button></div>'
-        return 0;
+    if (regexForEmail.test(iemail) != true && ecn != 1) {
+        document.getElementById('error-email').innerHTML = '<div class="alert alert-danger errorshow" role="alert">Enter vaild Email ID</div>';
     }
-    if (iconpwd == "") {
-        msg = "Fill Confirm Password Fields";
-        errorB.innerHTML = '<div class="alert alert-danger alert-dismissible" role="alert"  style="height: 30px; padding-top: 0%;">' + msg + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="height: 30px; padding: 0; padding-right: 10px;"></button></div>'
-        return 0;
+    if (regexForEmail.test(iemail) && ecn != 1) {
+        document.getElementById('error-email').innerHTML = "";
+        mcn++;
     }
 
-    // Regular Expression for email
-    let RegEmail = /\w+@[a-z]+.com/;
-
-    // Test for Email ID
-    if (RegEmail.test(iemail) != true) {
-        msg = "Invalid Email ID";
-        errorB.innerHTML = '<div class="alert alert-danger alert-dismissible" role="alert"  style="height: 30px; padding-top: 0%;">' + msg + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="height: 30px; padding: 0; padding-right: 10px;"></button></div>'
-        return 0;
-    }
-
-    // Regular Expression for password
+    // Validtion for Password
     let regexForCaps = /[A-Z]/g;
     let regexForNumber = /[0-9]/g;
     let regexForSpeChar = /\W/g;
 
-    // Tests for Password
-    // Test for more than 8 char
-    if (ipwd.length <= 8) {
-        msg = "Password must have 8 Char.";
-        errorB.innerHTML = '<div class="alert alert-danger alert-dismissible" role="alert"  style="height: 30px; padding-top: 0%;">' + msg + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="height: 30px; padding: 0; padding-right: 10px;"></button></div>'
-        return 0;
-    }
-    // Test for Capital Letter
-    if (regexForCaps.test(ipwd) != true) {
-        msg = "Password must have Capital Letter";
-        errorB.innerHTML = '<div class="alert alert-danger alert-dismissible" role="alert"  style="height: 30px; padding-top: 0%;">' + msg + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="height: 30px; padding: 0; padding-right: 10px;"></button></div>'
-        return 0;
-    }
-    // Test for Numbers
-    if (regexForNumber.test(ipwd) != true) {
-        msg = "Password must have Number";
-        errorB.innerHTML = '<div class="alert alert-danger alert-dismissible" role="alert"  style="height: 30px; padding-top: 0%;">' + msg + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="height: 30px; padding: 0; padding-right: 10px;"></button></div>'
-        return 0;
-    }
-    // Test for special char
-    if (regexForSpeChar.test(ipwd) != true) {
-        msg = "Password must have Special Char";
-        errorB.innerHTML = '<div class="alert alert-danger alert-dismissible" role="alert"  style="height: 30px; padding-top: 0%;">' + msg + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="height: 30px; padding: 0; padding-right: 10px;"></button></div>'
-        return 0;
+    if (ipwd == "") {
+        document.getElementById('error-pwd').innerHTML = '<div class="alert alert-danger errorshow" role="alert">Please fill this field</div>';
+        pcn = 1;
     }
 
-    // Test Confrim Password
-    if (iconpwd != ipwd) {
-        msg = "Confirm Password Must be Same";
-        errorB.innerHTML = '<div class="alert alert-danger alert-dismissible" role="alert"  style="height: 30px; padding-top: 0%;">' + msg + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="height: 30px; padding: 0; padding-right: 10px;"></button></div>'
-        return 0;
+    if (ipwd.length < 8 && pcn != 1) {
+        epwd += "Password must have 8 Char.<br>";
+        pcn = 2;
     }
+    if (regexForCaps.test(ipwd) != true && pcn != 1) {
+        epwd += "Password must have 1 Capital Letter.<br>";
+        pcn = 2;
+    }
+    if (regexForNumber.test(ipwd) != true && pcn != 1) {
+        epwd += "password must have 1 Number.<br>";
+        pcn = 2;
+    }
+    if (regexForSpeChar.test(ipwd) != true && pcn != 1) {
+        epwd += "Password must have 1 Special Char.<br>";
+        pcn = 2;
+    }
+    if (pcn == 2) {
+        document.getElementById('error-pwd').innerHTML = '<div class="alert alert-danger errorshow" role="alert">' + epwd + '</div>';
+    }
+
+    if (pcn != 1 && pcn != 2) {
+        document.getElementById('error-pwd').innerHTML = "";
+        mcn++;
+    }
+
+    // Validation for Confirm Password
+    if(iconpwd == ""){
+        document.getElementById('error-conpwd').innerHTML = '<div class="alert alert-danger errorshow" role="alert">Please fill this field</div>';
+        cpcn = 1;
+    }
+    if(iconpwd != ipwd && cpcn !=1){
+        document.getElementById('error-conpwd').innerHTML = '<div class="alert alert-danger errorshow" role="alert">Confirm Password show match with Password</div>';
+    }
+    if(iconpwd == ipwd && cpcn !=1){
+        document.getElementById('error-conpwd').innerHTML = "";
+        mcn++;
+    }
+    if(mcn != 4)return 0;
 
     // If All Validation Checked
     document.getElementById('input-name').innerText = iname;
@@ -112,7 +116,7 @@ function addItem() {
     const num = myToDoList.length;
     const titles = document.getElementById('titlea').value;
     const dec = document.getElementById('desca').value;
-    if (titles != "" || dec != "") {
+    if (titles != "" && dec != "") {
         let tempObj = {
             'id': num,
             'title': titles,
@@ -154,7 +158,7 @@ function editItem() {
     const titles = document.getElementById('titlee').value;
     const dec = document.getElementById('desce').value;
     const id = document.getElementById('ide').value;
-    if (titles != "" || dec != "") {
+    if (titles != "" && dec != "") {
         myToDoList[id].title = titles;
         myToDoList[id].desc = dec;
 
@@ -162,7 +166,7 @@ function editItem() {
 
         document.getElementById('title' + id).innerText = titles;
         document.getElementById('desc' + id).innerText = dec;
-    }else{
+    } else {
         return 0;
     }
 

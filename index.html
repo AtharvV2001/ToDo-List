@@ -39,18 +39,38 @@
                 <div class="row p-3">
                     <label for="name" class="fl">Enter Name : </label>
                     <input type="text" name="name" id="name" class="fi" placeholder="Name" required>
+                    <span id="error-name" style="margin-bottom: -35px;">
+                        <!-- <div class="alert alert-danger errorshow" role="alert">
+                            A simple danger alert—check it out!
+                        </div> -->
+                    </span>
                 </div>
                 <div class="row p-3">
                     <label for="email" class="fl">Enter Email ID : </label>
                     <input type="email" id="email" name="email" class="fi" placeholder="Email" required>
+                    <span id="error-email" style="margin-bottom: -35px;">
+                        <!-- <div class="alert alert-danger errorshow" role="alert">
+                            A simple danger alert—check it out!
+                        </div> -->
+                    </span>
                 </div>
                 <div class="row p-3">
                     <label for="pwd" class="fl">Enter Password : </label>
                     <input type="password" name="pwd" id="pwd" class="fi" placeholder="Password" required>
+                    <span id="error-pwd" style="margin-bottom: -35px;">
+                        <!-- <div class="alert alert-danger errorshow" role="alert">
+                            A simple danger alert—check it out!
+                        </div> -->
+                    </span>
                 </div>
                 <div class="row p-3">
                     <label for="conpwd" class="fl">Confirm Password :</label>
                     <input type="password" name="conpwd" id="conpwd" class="fi" placeholder="Confirm Password" required>
+                    <span id="error-conpwd" style="margin-bottom: -35px;">
+                        <!-- <div class="alert alert-danger errorshow" role="alert">
+                            A simple danger alert—check it out!
+                        </div> -->
+                    </span>
                 </div>
 
                 <div class="row p-3 justify-content-center">
@@ -73,6 +93,7 @@
         <!-- ToDo List -->
         <div class="container tdcon" style="max-width: 700px;">
             <ul class="list-group" id="todo-list">
+                <div id="empty-list" style="display: none;">Add Item to your List</div>
                 <!-- <li id="item0" class="list-group-item d-flex justify-content-between align-items-start list-item">
                 <div class="ms-2 me-auto" style="max-width: 550px;">
                     <div class="fw-bold fs-5" id="title0">Task 1</div>
