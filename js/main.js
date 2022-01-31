@@ -102,6 +102,9 @@ let myToDoList = JSON.parse(localStorage.getItem('ToDo-storage'));
 
 // Show Existing Items in List
 function show() {
+    if(myToDoList.length == 0){
+        document.getElementById('empty-list').style.display = "block";
+    }
     for (let i = 0; i < myToDoList.length; i++) {
         const num = i;
         const titles = myToDoList[i].title;
@@ -127,6 +130,9 @@ function addItem() {
         display_list(num, titles, dec);
         document.getElementById('titlea').value = "";
         document.getElementById('desca').value = "";
+        if(myToDoList.length == 1){
+            document.getElementById('empty-list').style.display = "none";
+        }
     } else {
         return 0;
     }
@@ -186,6 +192,10 @@ function deleteItem() {
     myToDoList = tempArr1.concat(tempArr2);
 
     localStorage.setItem('ToDo-storage', JSON.stringify(myToDoList));
+
+    if(myToDoList.length == 0){
+        document.getElementById('empty-list').style.display = "block";
+    }
 
     showadel(myToDoList);
 }
