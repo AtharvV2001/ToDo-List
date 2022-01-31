@@ -81,7 +81,7 @@ function check_valid() {
         cpcn = 1;
     }
     if(iconpwd != ipwd && cpcn !=1){
-        document.getElementById('error-conpwd').innerHTML = '<div class="alert alert-danger errorshow" role="alert">Confirm Password show match with Password</div>';
+        document.getElementById('error-conpwd').innerHTML = '<div class="alert alert-danger errorshow" role="alert">Confirm Password must match with Password</div>';
     }
     if(iconpwd == ipwd && cpcn !=1){
         document.getElementById('error-conpwd').innerHTML = "";
