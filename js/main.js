@@ -11,8 +11,28 @@ function check_valid() {
     let errorB = document.getElementById('display-error');
 
     // Check for blank Field
-    if (iemail == "" || iname == "" || iconpwd == "" || ipwd == "") {
+    if (iemail == "" && iname == "" && iconpwd == "" && ipwd == "") {
         msg = "Fill all Fields";
+        errorB.innerHTML = '<div class="alert alert-danger alert-dismissible" role="alert"  style="height: 30px; padding-top: 0%;">' + msg + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="height: 30px; padding: 0; padding-right: 10px;"></button></div>'
+        return 0;
+    }
+    if (iname == "") {
+        msg = "Fill Name Field";
+        errorB.innerHTML = '<div class="alert alert-danger alert-dismissible" role="alert"  style="height: 30px; padding-top: 0%;">' + msg + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="height: 30px; padding: 0; padding-right: 10px;"></button></div>'
+        return 0;
+    }
+    if (iemail == "") {
+        msg = "Fill Email Fields";
+        errorB.innerHTML = '<div class="alert alert-danger alert-dismissible" role="alert"  style="height: 30px; padding-top: 0%;">' + msg + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="height: 30px; padding: 0; padding-right: 10px;"></button></div>'
+        return 0;
+    }
+    if (ipwd == "") {
+        msg = "Fill Password Fields";
+        errorB.innerHTML = '<div class="alert alert-danger alert-dismissible" role="alert"  style="height: 30px; padding-top: 0%;">' + msg + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="height: 30px; padding: 0; padding-right: 10px;"></button></div>'
+        return 0;
+    }
+    if (iconpwd == "") {
+        msg = "Fill Confirm Password Fields";
         errorB.innerHTML = '<div class="alert alert-danger alert-dismissible" role="alert"  style="height: 30px; padding-top: 0%;">' + msg + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="height: 30px; padding: 0; padding-right: 10px;"></button></div>'
         return 0;
     }
@@ -73,32 +93,15 @@ function check_valid() {
 }
 
 // js Code for ToDo list Section
-// let myToDoList = JSON.parse(localStorage.getItem('temp'));
-let myArr = [
-    // {
-    //     'id': 0,
-    //     'title': 'Task 1',
-    //     'desc': 'Description 1'
-    // },
-    // {
-    //     'id': 1,
-    //     'title': 'Task 2',
-    //     'desc': 'Description 2'
-    // },
-    // {
-    //     'id': 2,
-    //     'title': 'Task 3',
-    //     'desc': 'Description 3'
-    // }
-];
+let myToDoList = JSON.parse(localStorage.getItem('ToDo-storage'));
 
 
 // Show Existing Items in List
 function show() {
-    for (let i = 0; i < myArr.length; i++) {
-        const num = myArr[i].id;
-        const titles = myArr[i].title;
-        const dec = myArr[i].desc;
+    for (let i = 0; i < myToDoList.length; i++) {
+        const num = i;
+        const titles = myToDoList[i].title;
+        const dec = myToDoList[i].desc;
         display_list(num, titles, dec);
     }
 
@@ -106,7 +109,7 @@ function show() {
 
 // Adding new item in list and displaying
 function addItem() {
-    const num = myArr.length;
+    const num = myToDoList.length;
     const titles = document.getElementById('titlea').value;
     const dec = document.getElementById('desca').value;
     if (titles != "" || dec != "") {
@@ -115,8 +118,8 @@ function addItem() {
             'title': titles,
             'desc': dec
         }
-        myArr.push(tempObj);
-        //localStorage.setItem('temp',JSON.stringify(myToDoList));
+        myToDoList.push(tempObj);
+        localStorage.setItem('ToDo-storage', JSON.stringify(myToDoList));
         display_list(num, titles, dec);
         document.getElementById('titlea').value = "";
         document.getElementById('desca').value = "";
@@ -137,26 +140,31 @@ function display_list(a, b, c) {
     lc.id = "item" + a;
     cl = ['list-group-item', 'd-flex', 'justify-content-between', 'align-items-start', 'list-item']
     lc.classList.add(...cl);
-    lc.innerHTML = '<div class="ms-2 me-auto" style="max-width: 550px;"><div class="fw-bold fs-5" id="title' + a + '">' + b + '</div><span id="desc' + a + '">' + c + '</span></div><div class="badge rounded-pill fs-5 list-btn hov" data-bs-toggle="modal" data-bs-target="#edit-item" onclick="display_edit(' + a + ')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></div><div class="badge rounded-pill fs-5 ms-3 list-btn hov" data-bs-toggle="modal" data-bs-target="#delete-item" onclick="display_delete('+a+')"><i class="fa fa-trash-o" aria-hidden="true"></i></div>'
+    lc.innerHTML = '<div class="ms-2 me-auto" style="max-width: 550px;"><div class="fw-bold fs-5" id="title' + a + '">' + b + '</div><span id="desc' + a + '">' + c + '</span></div><div class="badge rounded-pill fs-5 list-btn hov" data-bs-toggle="modal" data-bs-target="#edit-item" onclick="display_edit(' + a + ')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></div><div class="badge rounded-pill fs-5 ms-3 list-btn hov" data-bs-toggle="modal" data-bs-target="#delete-item" onclick="display_delete(' + a + ')"><i class="fa fa-trash-o" aria-hidden="true"></i></div>'
 }
 
 // Editing exsiting Item in list and displaying
 function display_edit(id) {
     document.getElementById('ide').value = id
-    document.getElementById('titlee').value = myArr[id].title;
-    document.getElementById('desce').value = myArr[id].desc;
+    document.getElementById('titlee').value = myToDoList[id].title;
+    document.getElementById('desce').value = myToDoList[id].desc;
 }
 
 function editItem() {
     const titles = document.getElementById('titlee').value;
     const dec = document.getElementById('desce').value;
     const id = document.getElementById('ide').value;
+    if (titles != "" || dec != "") {
+        myToDoList[id].title = titles;
+        myToDoList[id].desc = dec;
 
-    myArr[id].title = titles;
-    myArr[id].desc = dec;
+        localStorage.setItem('ToDo-storage', JSON.stringify(myToDoList));
 
-    document.getElementById('title'+id).innerText = titles;
-    document.getElementById('desc'+id).innerText = dec;
+        document.getElementById('title' + id).innerText = titles;
+        document.getElementById('desc' + id).innerText = dec;
+    }else{
+        return 0;
+    }
 
 }
 
@@ -168,21 +176,20 @@ function display_delete(id) {
 function deleteItem() {
     const id = Number.parseInt(document.getElementById('idd').value);
 
-    let tempArr1 = myArr.slice(0,id);
-    alert(JSON.stringify(tempArr1));
-    let tempArr2 = myArr.slice(id+1,-1);
-    alert(JSON.stringify(tempArr2));
+    let tempArr1 = myToDoList.slice(0, id);
+    let tempArr2 = myToDoList.slice(id + 1, myToDoList.length);
 
-    myArr = myArr.filter(x => x.id !== id);
-    alert(JSON.stringify(myArr));
+    myToDoList = tempArr1.concat(tempArr2);
 
-    showadel(myArr);
+    localStorage.setItem('ToDo-storage', JSON.stringify(myToDoList));
+
+    showadel(myToDoList);
 }
 
 function showadel(x) {
     document.getElementById('todo-list').innerHTML = "";
     for (let i = 0; i < x.length; i++) {
-        const num = x[i].id;
+        const num = i;
         const titles = x[i].title;
         const dec = x[i].desc;
         display_list(num, titles, dec);
