@@ -99,6 +99,11 @@ function check_valid() {
 // js Code for ToDo list Section
 let myToDoList = JSON.parse(localStorage.getItem('ToDo-storage'));
 
+if(myToDoList === null){
+    az=[];
+    localStorage.setItem('ToDo-storage',JSON.stringify(az));
+    console.log(myToDoList);
+}
 
 // Show Existing Items in List
 function show() {
