@@ -103,6 +103,7 @@ if(myToDoList === null){
     az=[];
     localStorage.setItem('ToDo-storage',JSON.stringify(az));
     console.log(myToDoList);
+    myToDoList = JSON.parse(localStorage.getItem('ToDo-storage'));
 }
 
 // Show Existing Items in List
